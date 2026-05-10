@@ -12,11 +12,13 @@ local player = Players.LocalPlayer
 local savedColor = Color3.fromRGB(255,255,255)
 
 -------------------------------------------------
--- 🔁 SETUP FUNCTION (NOW RESPAWN SAFE)
+-- 🔁 SETUP FUNCTION (RESPAWN SAFE)
 -------------------------------------------------
 local function setup()
 
-	-- FOV Lock
+	-------------------------------------------------
+	-- FOV LOCK
+	-------------------------------------------------
 	camera.FieldOfView = 115
 	camera:GetPropertyChangedSignal("FieldOfView"):Connect(function()
 		if camera.FieldOfView ~= 115 then
@@ -24,7 +26,9 @@ local function setup()
 		end
 	end)
 
-	-- Timings
+	-------------------------------------------------
+	-- TIMINGS
+	-------------------------------------------------
 	local speedDelay = 0.0000000000000002
 	local comboHold = 0.03
 	local rpgSpeed = speedDelay * 2.5
@@ -33,8 +37,13 @@ local function setup()
 	task.wait(1)
 
 	local viewport = camera.ViewportSize
+
+	-------------------------------------------------
+	-- 🎯 TRUE DESKTOP/MACBOOK SHOOTING CENTER
+	-------------------------------------------------
 	local CLICK_X = viewport.X / 2
-	local CLICK_Y = viewport.Y / 2 - 15 + 14
+	local CLICK_Y = viewport.Y / 2 - 4
+
 	local LOCK_X = viewport.X - 190
 	local LOCK_Y = viewport.Y - 100
 
@@ -46,6 +55,7 @@ local function setup()
 	if PlayerGui:FindFirstChild("CrosshairGui") then
 		PlayerGui.CrosshairGui:Destroy()
 	end
+
 	if PlayerGui:FindFirstChild("ColorUI") then
 		PlayerGui.ColorUI:Destroy()
 	end
@@ -57,9 +67,9 @@ local function setup()
 	gui.Parent = PlayerGui
 
 	-------------------------------------------------
-	-- ✅ MACBOOK/DESKTOP CENTERED CROSSHAIR
+	-- 🎯 CROSSHAIR POSITION
 	-------------------------------------------------
-	local centerX, centerY = viewport.X / 2, viewport.Y / 2 + 6
+	local centerX, centerY = viewport.X / 2, viewport.Y / 2 - 4
 
 	local crosshairParts = {}
 
@@ -84,6 +94,9 @@ local function setup()
 		table.insert(crosshairParts, inner)
 	end
 
+	-------------------------------------------------
+	-- 🎯 CROSSHAIR SHAPE
+	-------------------------------------------------
 	createFrameWithOutline(2, 2, centerX - 1, centerY - 1)
 	createFrameWithOutline(7, 2, centerX - 11, centerY - 1)
 	createFrameWithOutline(7, 2, centerX + 4, centerY - 1)
@@ -116,7 +129,7 @@ local function setup()
 	toggle.Parent = ui
 
 	local panel = Instance.new("Frame")
-	panel.Size = UDim2.new(0, 360, 0, 400)
+	panel.Size = UDim2.new(0,360,0,400)
 	panel.Position = UDim2.new(0,10,0,70)
 	panel.BackgroundColor3 = Color3.fromRGB(30,30,30)
 	panel.Visible = false
@@ -127,7 +140,7 @@ local function setup()
 	end)
 
 	-------------------------------------------------
-	-- 🎨 PALETTE
+	-- 🎨 COLOR PALETTE
 	-------------------------------------------------
 	local scrollFrame = Instance.new("ScrollingFrame")
 	scrollFrame.Size = UDim2.new(0,340,0,280)
@@ -140,11 +153,11 @@ local function setup()
 	local gridSize = 12
 	local spacing = 28
 
-	for row = 0, gridSize-1 do
-		for col = 0, gridSize-1 do
+	for row = 0, gridSize - 1 do
+		for col = 0, gridSize - 1 do
 			local btn = Instance.new("TextButton")
 			btn.Size = UDim2.new(0,24,0,24)
-			btn.Position = UDim2.new(0, col*spacing+10, 0, row*spacing+10)
+			btn.Position = UDim2.new(0,col * spacing + 10,0,row * spacing + 10)
 			btn.BackgroundColor3 = Color3.fromHSV(col/(gridSize-1), 1-row/(gridSize-1), 1)
 			btn.BorderSizePixel = 0
 			btn.Text = ""
@@ -158,7 +171,7 @@ local function setup()
 
 	local blackBtn = Instance.new("TextButton")
 	blackBtn.Size = UDim2.new(0,24,0,24)
-	blackBtn.Position = UDim2.new(0,10,0,gridSize*spacing+10)
+	blackBtn.Position = UDim2.new(0,10,0,gridSize * spacing + 10)
 	blackBtn.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	blackBtn.BorderSizePixel = 0
 	blackBtn.Text = ""
@@ -169,7 +182,7 @@ local function setup()
 	end)
 
 	-------------------------------------------------
-	-- Helpers
+	-- HELPERS
 	-------------------------------------------------
 	local function click()
 		VirtualInputManager:SendMouseButtonEvent(CLICK_X, CLICK_Y, 0, true, game, 0)
@@ -217,9 +230,8 @@ local function setup()
 	end, false, Enum.KeyCode.ButtonL3)
 
 	-------------------------------------------------
-	-- FIXED BINDINGS
+	-- SNOWBALLS
 	-------------------------------------------------
-
 	ContextActionService:BindAction("Snowballs", function(_, state)
 		if state == Enum.UserInputState.Begin then
 			pressAndClick(Enum.KeyCode.Eight, snowballSlow)
@@ -228,6 +240,9 @@ local function setup()
 		end
 	end, false, Enum.KeyCode.ButtonR3)
 
+	-------------------------------------------------
+	-- RPG
+	-------------------------------------------------
 	ContextActionService:BindAction("RPG", function(_, state)
 		if state == Enum.UserInputState.Begin then
 			pressAndClick(Enum.KeyCode.One, rpgSpeed)
@@ -236,6 +251,9 @@ local function setup()
 		end
 	end, false, Enum.KeyCode.ButtonL1)
 
+	-------------------------------------------------
+	-- GRENADE
+	-------------------------------------------------
 	ContextActionService:BindAction("Grenade", function(_, state)
 		if state == Enum.UserInputState.Begin then
 			pressAndClick(Enum.KeyCode.Three, speedDelay)
@@ -243,6 +261,9 @@ local function setup()
 		end
 	end, false, Enum.KeyCode.ButtonR1)
 
+	-------------------------------------------------
+	-- TASER
+	-------------------------------------------------
 	ContextActionService:BindAction("Taser", function(_, state)
 		if state == Enum.UserInputState.Begin then
 			pressAndClick(Enum.KeyCode.Zero, speedDelay)
@@ -251,7 +272,7 @@ local function setup()
 	end, false, Enum.KeyCode.DPadRight)
 
 	-------------------------------------------------
-	-- 🔧 OFF FIXED (2 → CLICK)
+	-- OFF
 	-------------------------------------------------
 	ContextActionService:BindAction("Off", function(_, state)
 		if state == Enum.UserInputState.Begin then
@@ -278,7 +299,6 @@ end
 -------------------------------------------------
 -- 🎮 LDP SYSTEM
 -------------------------------------------------
-
 local lastTap = 0
 local DOUBLE_TAP_TIME = 0.6
 local debounce = false
@@ -310,6 +330,7 @@ UserInputService.InputBegan:Connect(function(input, gpe)
 		leftHeld = true
 
 		local now = os.clock()
+
 		if (now - lastTap) <= DOUBLE_TAP_TIME then
 			runSequence()
 			lastTap = 0
@@ -331,7 +352,7 @@ UserInputService.InputEnded:Connect(function(input)
 end)
 
 -------------------------------------------------
--- RUN
+-- ▶ RUN
 -------------------------------------------------
 setup()
 
