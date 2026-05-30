@@ -188,7 +188,7 @@ local function comboPress(key)
 end
 
 -------------------------------------------------
--- ⭐ COMBO (UNCHANGED) 
+-- ⭐ COMBO
 -------------------------------------------------
 local holdingL3 = false
 
@@ -247,7 +247,7 @@ ContextActionService:BindAction("Taser", function(_, state)
 end, false, Enum.KeyCode.DPadRight)
 
 -------------------------------------------------
--- 🔧 OFF FIXED (2 → CLICK)
+-- 🔧 OFF FIXED
 -------------------------------------------------
 ContextActionService:BindAction("Off", function(_, state)
 	if state == Enum.UserInputState.Begin then
@@ -272,7 +272,7 @@ end, false, Enum.KeyCode.ButtonY)
 end
 
 -------------------------------------------------
--- 🎮 LDP SYSTEM (BUMPED STABLE TIMING)
+-- 🎮 LDP SYSTEM (YOUR ADDED SYSTEM)
 -------------------------------------------------
 
 local lastTap = 0
@@ -282,9 +282,9 @@ local leftHeld = false
 
 local function tap(key)
 	VirtualInputManager:SendKeyEvent(true, key, false, game)
-	task.wait(0.03) -- bumped
+	task.wait(0.03)
 	VirtualInputManager:SendKeyEvent(false, key, false, game)
-	task.wait(0.02) -- bumped
+	task.wait(0.02)
 end
 
 local function runSequence()
@@ -304,6 +304,9 @@ UserInputService.InputBegan:Connect(function(input, gpe)
 
 	if input.KeyCode == Enum.KeyCode.DPadLeft then
 		leftHeld = true
+
+		-- 🔄 RE-RUN SETUP ON PRESS
+		setup()
 
 		local now = os.clock()
 		if (now - lastTap) <= DOUBLE_TAP_TIME then
