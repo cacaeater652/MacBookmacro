@@ -35,7 +35,7 @@ task.wait(1)
 local viewport = camera.ViewportSize
 local CLICK_X = viewport.X / 2
 local CLICK_Y = viewport.Y / 2 - 15 + 14
-local LOCK_X = viewport.X - 300
+local LOCK_X = viewport.X - 400
 local LOCK_Y = viewport.Y - 100
 
 -------------------------------------------------
@@ -196,10 +196,10 @@ ContextActionService:BindAction("Combo", function(_, state)
 	if state == Enum.UserInputState.Begin then
 		holdingL3 = true
 
-		comboPress(Enum.KeyCode.Four)
-		comboPress(Enum.KeyCode.Five)
 		comboPress(Enum.KeyCode.Six)
 		comboPress(Enum.KeyCode.Seven)
+		comboPress(Enum.KeyCode.One)
+		comboPress(Enum.KeyCode.Five)
 
 		click()
 
@@ -226,7 +226,7 @@ end, false, Enum.KeyCode.ButtonR3)
 
 ContextActionService:BindAction("RPG", function(_, state)
 	if state == Enum.UserInputState.Begin then
-		pressAndClick(Enum.KeyCode.One, rpgSpeed)
+		pressAndClick(Enum.KeyCode.Four, rpgSpeed)
 		pressAndClick(Enum.KeyCode.R, rpgSpeed)
 		pressAndClick(Enum.KeyCode.Two, rpgSpeed)
 	end
@@ -234,15 +234,15 @@ end, false, Enum.KeyCode.ButtonL1)
 
 ContextActionService:BindAction("Grenade", function(_, state)
 	if state == Enum.UserInputState.Begin then
-		pressAndClick(Enum.KeyCode.Three, speedDelay)
+		pressAndClick(Enum.KeyCode.Zero, speedDelay)
 		pressAndClick(Enum.KeyCode.Two, speedDelay)
 	end
 end, false, Enum.KeyCode.ButtonR1)
 
 ContextActionService:BindAction("Taser", function(_, state)
 	if state == Enum.UserInputState.Begin then
-		pressAndClick(Enum.KeyCode.Zero, speedDelay)
-		pressAndClick(Enum.KeyCode.Two, speedDelay)
+		pressAndClick(Enum.KeyCode.Three, speedDelay)
+		
 	end
 end, false, Enum.KeyCode.DPadRight)
 
