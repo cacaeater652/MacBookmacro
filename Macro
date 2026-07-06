@@ -261,11 +261,12 @@ end, false, Enum.KeyCode.DPadDown)
 -------------------------------------------------
 -- LOCK
 -------------------------------------------------
+
 ContextActionService:BindAction("Lock", function(_, state)
 	if state == Enum.UserInputState.Begin then
-		VirtualInputManager:SendMouseButtonEvent(LOCK_X, LOCK_Y, 0, true, game, 0)
+		VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftShift, false, game)
 		task.wait(speedDelay)
-		VirtualInputManager:SendMouseButtonEvent(LOCK_X, LOCK_Y, 0, false, game, 0)
+		VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftShift, false, game)
 	end
 end, false, Enum.KeyCode.ButtonY)
 
