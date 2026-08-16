@@ -26,7 +26,7 @@ end)
 
 -- Timings
 local speedDelay = 0.0000000000000002
-local comboHold = 0.005
+local comboHold = 0.0005
 local rpgSpeed = speedDelay * 2.5
 local snowballSlow = 0.032
 
