@@ -196,9 +196,9 @@ ContextActionService:BindAction("Combo", function(_, state)
 	if state == Enum.UserInputState.Begin then
 		holdingL3 = true
 
+		comboPress(Enum.KeyCode.One)
 		comboPress(Enum.KeyCode.Six)
 		comboPress(Enum.KeyCode.Seven)
-		comboPress(Enum.KeyCode.One)
 		comboPress(Enum.KeyCode.Five)
 
 		click()
